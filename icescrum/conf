@@ -5,14 +5,14 @@
 apt-get update
 
 # Install curl
-apt-get install -y --force-yes curl tomcat6 mysql-server
+apt-get install -y --force-yes curl tomcat6 mysql-server postfix
 
 # Set Hostname
 HOSTNAME=icescrum
 echo "$HOSTNAME" > /etc/hostname
 sed -i "s|127.0.1.1 \(.*\)|127.0.1.1 $HOSTNAME|" /etc/hosts
 
-# Download icescrum3 war
+# Download icescrum war
 mkdir -p /opt/icescrum && cd /opt/icescrum
 #wget http://www.icescrum.org/downloads/icescrum_R4_4_war.zip
 #unzip icescrum_R4_4_war.zip
@@ -28,7 +28,7 @@ flush privileges;
 END_PRIVS
 
 # Set permission for tomcat user
-chown tomcat7:tomcat6 /usr/share/tomcat6
+chown tomcat6:tomcat6 /usr/share/tomcat6
 
 # Remove tomcat6 default / app
 rm -Rf /var/lib/tomcat6/webapps/ROOT/
