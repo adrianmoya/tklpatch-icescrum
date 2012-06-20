@@ -1,0 +1,45 @@
+#!/bin/bash -ex
+# By Adrian Moya <adrian@turnkeylinux.org> 2012
+
+# Update apt-get
+apt-get update
+
+# Install curl
+apt-get install -y --force-yes curl tomcat6 mysql-server
+
+# Set Hostname
+HOSTNAME=icescrum
+echo "$HOSTNAME" > /etc/hostname
+sed -i "s|127.0.1.1 \(.*\)|127.0.1.1 $HOSTNAME|" /etc/hosts
+
+# Download icescrum3 war
+mkdir -p /opt/icescrum && cd /opt/icescrum
+#wget http://www.icescrum.org/downloads/icescrum_R4_4_war.zip
+#unzip icescrum_R4_4_war.zip
+#rm icescrum_R4_4_war.zip
+wget http://tools.icescrum.org/jenkins/job/iceScrum/lastSuccessfulBuild/artifact/target/icescrum.war
+
+# Create database and database user
+service mysql start
+mysqladmin -u root create icescrum
+mysql -u root <<-END_PRIVS
+GRANT ALL PRIVILEGES ON icescrum.* TO icescrum@localhost IDENTIFIED BY "icescrum";
+flush privileges;
+END_PRIVS
+
+# Set permission for tomcat user
+chown tomcat7:tomcat6 /usr/share/tomcat6
+
+# Remove tomcat6 default / app
+rm -Rf /var/lib/tomcat6/webapps/ROOT/
+
+# Deploy icescrum on tomcat's root
+ln -s /opt/icescrum/icescrum.war /var/lib/tomcat6/webapps/ROOT.war
+
+#Reload application
+service tomcat6 start
+curl -m 200 'http://localhost/' 
+service tomcat6 stop
+
+#Stop mysql
+service mysql stop

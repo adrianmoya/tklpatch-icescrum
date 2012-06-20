@@ -1,0 +1,3 @@
+Icescrum:   http://$ipaddr/
+            https://$ipaddr/
+SSH/SFTP:   root@$ipaddr (port 22)

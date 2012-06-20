@@ -1,0 +1,4 @@
+#!/bin/bash
+# Script to update icescrum ip for permalinks.
+IP=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+sed -i "s|grails.serverURL=http://\(.*\)|grails.serverURL=http://$IP|" /etc/icescrum/config.properties
