@@ -26,6 +26,9 @@ GRANT ALL PRIVILEGES ON icescrum.* TO icescrum@localhost IDENTIFIED BY "icescrum
 flush privileges;
 END_PRIVS
 
+# Modify protocol for tomcat connectors
+sed -i "s|HTTP\/1.1|org.apache.coyote.http11.Http11NioProtocol|" /etc/tomcat6/server.xml
+
 # Set permission for tomcat user
 chown -R tomcat6:tomcat6 /usr/share/tomcat6
 
