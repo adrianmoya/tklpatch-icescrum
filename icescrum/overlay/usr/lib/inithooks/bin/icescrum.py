@@ -75,7 +75,7 @@ def main():
 
     m = MySQL()
     m.execute('UPDATE icescrum.icescrum2_user SET email=\"%s\" WHERE username=\"admin\";' % email)
-    m.execute('UPDATE icescrum.icescrum2_user SET password=\"%s\" WHERE username=\"admin\";' % hashpass)
+    m.execute('UPDATE icescrum.icescrum2_user SET passwd=\"%s\" WHERE username=\"admin\";' % hashpass)
 
     for line in fileinput.input("/etc/icescrum/config.properties",inplace=True):
         line = line.replace("https://localhost", "https://"+domain)
