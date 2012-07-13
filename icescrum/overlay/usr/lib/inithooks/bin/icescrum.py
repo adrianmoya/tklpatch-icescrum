@@ -22,7 +22,7 @@ def usage(s=None):
     print >> sys.stderr, __doc__
     sys.exit(1)
 
-DEFAULT_DOMAIN="git.example.com"
+DEFAULT_DOMAIN="icescrum.example.com"
 
 def main():
     try:

@@ -1,0 +1,7 @@
+grant codeBase "file:${catalina.base}/webapps/icescrum/-" {
+            permission java.security.AllPermission;
+};
+grant {
+            permission java.net.SocketPermission "localhost:3306", "connect, resolve";
+};"
+
