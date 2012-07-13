@@ -11,6 +11,7 @@ Option:
 import sys
 import getopt
 import hashlib
+import fileinput
 
 from dialog_wrapper import Dialog
 from mysqlconf import MySQL
